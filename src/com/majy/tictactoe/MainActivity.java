@@ -1,4 +1,4 @@
-package com.example.tictactoeui;
+package com.majy.tictactoe;
 
 import android.app.Activity;
 import android.os.Bundle;

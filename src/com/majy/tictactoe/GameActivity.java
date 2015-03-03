@@ -1,4 +1,4 @@
-package com.example.tictactoeui;
+package com.majy.tictactoe;
 
 //import android.support.v7.app.ActionBarActivity;
 //import android.app.ActionBar;
@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-
 
 public class GameActivity extends Activity {
 
@@ -31,7 +30,6 @@ public class GameActivity extends Activity {
         mainLayout.addView(table);
 
         createButtons();
-
     }
 
 
@@ -61,26 +59,23 @@ public class GameActivity extends Activity {
     private void createButtons()
     {
         table.removeAllViews();
-
         table.setStretchAllColumns(true);
 
         btns = new ImageButton[N][N];
-        for (int i=0; i<N; i++)
-        {
+        for(int i=0; i<N; i++){
             TableRow row = new TableRow(this);
             TableRow.LayoutParams paramsBtn = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1);
-            for (int j=0; j<N; j++)
-            {
+            
+            for (int j=0; j<N; j++){
                 ImageButton btn = new ImageButton(this);
-               // btn.setBackgroundResource(R.drawable.posvide);
+                // btn.setBackgroundResource(R.drawable.posvide);
                 btns[i][j] = btn;
                 btn.setPadding(0,0,0,0);
                 btn.setId(i*N + j);
                 btn.setLayoutParams(paramsBtn);
                 row.addView(btn);
-                btn.setOnClickListener(new View.OnClickListener() {
-
-                    public void onClick(View view) {
+                btn.setOnClickListener(new View.OnClickListener(){
+                    public void onClick(View view){
                         int id = view.getId();
                         int i = id/N;
                         int j = id - N*i;
@@ -93,23 +88,17 @@ public class GameActivity extends Activity {
             table.setColumnShrinkable(i, true);
         }
         setButtons(); //initialiser les images
-
-
     }
 
     //initialiser les images avec l'image vide
     public void setButtons(){
         //Case c;
-
         for (int i=0; i<N; i++){
             for (int j=0; j<N; j++){
                 (btns[i][j]).setBackgroundResource(R.drawable.blank);
 
             }
-
         }
-
     }
-
 
 }
