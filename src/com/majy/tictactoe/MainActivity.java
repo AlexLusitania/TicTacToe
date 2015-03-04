@@ -1,9 +1,12 @@
 package com.majy.tictactoe;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends Activity {
 	
@@ -13,6 +16,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
 
+	public void singlePlayer(View view){
+		Intent intent = new Intent(this, GameActivity.class);
+		startActivity(intent);
+	}
+	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
