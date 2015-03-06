@@ -6,26 +6,37 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <ImageButton
+    <Button
         android:id="@+id/singleplayer_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/singleplayer"
         android:onClick="singlePlayer"
-        android:src="@drawable/singleplayer" />
+        android:drawableLeft="@drawable/singleplayer"
+        android:drawableStart="@drawable/singleplayer"
+        android:text="@string/singleplayer"
+        android:textColor="#33b5e5" />
 
-    <ImageButton
+    <Button
         android:id="@+id/multiplayer_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/multiplayer"
-        android:src="@drawable/multiplayer" />
+        android:src="@drawable/multiplayer"
+        android:drawableLeft="@drawable/multiplayer"
+        android:drawableStart="@drawable/multiplayer"
+        android:text="@string/multiplayer"
+        android:textColor="#33b5e5" />
 
-    <ImageButton
+    <Button
         android:id="@+id/bluetooth_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/bluetooth"
-        android:src="@drawable/bluetooth" />
+        android:src="@drawable/bluetooth"
+        android:drawableLeft="@drawable/bluetooth"
+        android:drawableStart="@drawable/bluetooth"
+        android:text="@string/bluetooth"
+        android:textColor="#33b5e5" />
 
 </LinearLayout>
