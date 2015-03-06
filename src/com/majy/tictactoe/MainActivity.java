@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 public class MainActivity extends Activity {
+	
+	private static final int SETTINGS_RETURN = 1;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +31,29 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        // Handle action bar item clicks here.
+    	super.onOptionsItemSelected(item);
+    	
+        switch(item.getItemId()){
+        	case(R.id.action_settings):
+        		Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+        		startActivityForResult(intent, SETTINGS_RETURN);
+        		return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return false;
     }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SETTINGS_RETURN){
+            updateSettings();
+        }
+    }
+
+	private void updateSettings() {
+		
+	}
 }

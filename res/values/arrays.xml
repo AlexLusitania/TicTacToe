@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string-array name="pref_language_entries">
+        <item>English</item>
+        <item>Français</item>
+        <item>Português (Europeu)</item>
+        <item>Українська</item>
+    </string-array>
+
+    <string-array name="pref_language_values">
+        <item>en</item>
+        <item>fr</item>
+        <item>pt</item>
+        <item>ua</item>
+    </string-array>
+
+</resources>

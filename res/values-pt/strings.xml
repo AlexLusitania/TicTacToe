@@ -3,5 +3,8 @@
     
     <string name="app_name">Tic Tac Toe</string>
     <string name="action_settings">Opções</string>
+    <string name="singleplayer">1 Jogador</string>
+    <string name="multiplayer">2 Jogadores</string>
+    <string name="bluetooth">Bluetooth</string>
     
 </resources>
