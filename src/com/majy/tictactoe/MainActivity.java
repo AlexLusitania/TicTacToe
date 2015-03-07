@@ -1,19 +1,28 @@
 package com.majy.tictactoe;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
 	private static final int SETTINGS_RETURN = 1;
+	private SharedPreferences pref;
+	private Configuration config;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateSettings();
         setContentView(R.layout.activity_main);
     }
 
@@ -25,6 +34,7 @@ public class MainActivity extends Activity {
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+		updateSettings();
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -53,7 +63,19 @@ public class MainActivity extends Activity {
         }
     }
 
-	private void updateSettings() {
-		
+	private void updateSettings(){
+		pref = PreferenceManager.getDefaultSharedPreferences(this);
+        config = getBaseContext().getResources().getConfiguration();
+        String pref_language = pref.getString("pref_language", "en");
+        
+        //Toast.makeText(getApplicationContext(), "pref_language: " + pref_language, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "config_language: " + config.locale.getLanguage(), Toast.LENGTH_SHORT).show();
+        
+        if (!config.locale.getLanguage().equals(pref_language)){
+        	Locale locale = new Locale(pref_language);
+        	Locale.setDefault(locale);
+        	config.locale = locale;
+        	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        }
 	}
 }

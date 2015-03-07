@@ -6,6 +6,7 @@
     <string name="singleplayer">1 Joueur</string>
     <string name="multiplayer">2 Joueurs</string>
     <string name="bluetooth">Bluetooth</string>
-    
+    <string name="pref_language">Langue</string>
+    <string name="pref_language_summary">Choisissez votre langue</string>
     
 </resources>
