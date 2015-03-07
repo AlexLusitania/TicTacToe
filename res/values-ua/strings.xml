@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+    <!-- To remove -->
+    <string name="singleplayer">Я не</string>
+    <string name="multiplayer">говорю</string>
+    <string name="bluetooth">по-українськи</string>
 </resources>

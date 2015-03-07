@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+@SuppressWarnings("unused")
 public class MainActivity extends Activity {
 	
 	private static final int SETTINGS_RETURN = 1;

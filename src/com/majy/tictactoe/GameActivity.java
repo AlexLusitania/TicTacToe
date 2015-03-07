@@ -1,7 +1,5 @@
 package com.majy.tictactoe;
 
-//import android.support.v7.app.ActionBarActivity;
-//import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -78,7 +76,7 @@ public class GameActivity extends Activity {
                     public void onClick(View view){
                         int id = view.getId();
                         int i = id/N;
-                        int j = id - N*i;
+						int j = id - N*i;
                         //game.controller().buttonClick(i, j, game);
                     }
                 });
