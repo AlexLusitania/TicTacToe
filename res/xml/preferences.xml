@@ -2,7 +2,31 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
+    <EditTextPreference
+        android:title="@string/pref_username"
+        android:key="pref_pseudo"
+        android:summary="@string/pref_username_summary"
+        android:defaultValue="@string/default_username" />
+    
+    
+    
+    <ListPreference 
+        android:key="pref_size"
+        android:title="@string/pref_size"
+        android:summary="@string/pref_size_summary"
+        android:entries="@array/pref_size_entries"
+        android:entryValues="@array/pref_size_values"
+        android:defaultValue="3" />
+    
+    <ListPreference 
+        android:key="pref_difficulty"
+        android:title="@string/pref_difficulty"
+        android:summary="@string/pref_difficulty_summary"
+        android:entries="@array/pref_difficulty_entries"
+        android:entryValues="@array/pref_difficulty_values"
+        android:defaultValue="1" />
+        
+	<ListPreference
         android:key="pref_language"
         android:title="@string/pref_language"
         android:summary="@string/pref_language_summary"

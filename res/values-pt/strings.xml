@@ -2,11 +2,26 @@
 <resources>
     
     <string name="app_name">Tic Tac Toe</string>
-    <string name="action_settings">Opções</string>
+    
+    <!-- Main -->
     <string name="singleplayer">1 Jogador</string>
     <string name="multiplayer">2 Jogadores</string>
     <string name="bluetooth">Bluetooth</string>
+    
+    <!-- Preferences -->
+    <string name="action_settings">Opções</string>
+    
     <string name="pref_language">Idioma</string>
     <string name="pref_language_summary">Escolha o seu idioma</string>
+    
+    <string name="pref_username">Pseudónimo</string>
+    <string name="pref_username_summary">Escolha o seu pseudónimo</string>
+    <string name="default_username">Jogador 1</string>
+    
+    <string name="pref_size">Tamanho da grelha</string>
+    <string name="pref_size_summary">Escolha o tamanho da grelha</string>
+    
+    <string name="pref_difficulty">Dificuldade</string>
+    <string name="pref_difficulty_summary">Escolha a dificuldade</string>
     
 </resources>

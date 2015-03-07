@@ -2,11 +2,26 @@
 <resources>
 
     <string name="app_name">Tic Tac Toe</string>
-    <string name="action_settings">Settings</string>
+    
+    <!-- Main -->
     <string name="singleplayer">Single Player</string>
     <string name="multiplayer">2 Players</string>
     <string name="bluetooth">Bluetooth</string>
+    
+    <!-- Preferences -->
+    <string name="action_settings">Settings</string>
+    
     <string name="pref_language">Language</string>
     <string name="pref_language_summary">Choose your language</string>
+    
+    <string name="pref_username">Username</string>
+    <string name="pref_username_summary">Provide your username here</string>
+    <string name="default_username">Player 1</string>
+    
+    <string name="pref_size">Size of the matrix</string>
+    <string name="pref_size_summary">Choose the size</string>
+    
+    <string name="pref_difficulty">Difficulty</string>
+    <string name="pref_difficulty_summary">Choose the difficulty</string>
 
 </resources>
