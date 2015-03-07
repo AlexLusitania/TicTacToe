@@ -3,26 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
     <Button
         android:id="@+id/singleplayer_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:contentDescription="@string/singleplayer"
-        android:onClick="singlePlayer"
         android:drawableLeft="@drawable/singleplayer"
         android:drawableStart="@drawable/singleplayer"
+        android:onClick="singlePlayer"
         android:text="@string/singleplayer"
         android:textColor="#33b5e5" />
 
     <Button
         android:id="@+id/multiplayer_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:contentDescription="@string/multiplayer"
-        android:src="@drawable/multiplayer"
         android:drawableLeft="@drawable/multiplayer"
         android:drawableStart="@drawable/multiplayer"
         android:text="@string/multiplayer"
@@ -31,9 +36,9 @@
     <Button
         android:id="@+id/bluetooth_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:contentDescription="@string/bluetooth"
-        android:src="@drawable/bluetooth"
         android:drawableLeft="@drawable/bluetooth"
         android:drawableStart="@drawable/bluetooth"
         android:text="@string/bluetooth"
