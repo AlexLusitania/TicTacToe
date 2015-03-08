@@ -8,8 +8,6 @@
         android:summary="@string/pref_username_summary"
         android:defaultValue="@string/default_username" />
     
-    
-    
     <ListPreference 
         android:key="pref_size"
         android:title="@string/pref_size"

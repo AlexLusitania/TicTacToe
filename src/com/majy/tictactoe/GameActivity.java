@@ -1,7 +1,9 @@
 package com.majy.tictactoe;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,21 +12,27 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+@SuppressWarnings("unused")
 public class GameActivity extends Activity {
 
     private LinearLayout mainLayout;
     private TableLayout table;
-    private int N = 3;
+    private int n;
     private ImageButton[][] btns;
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        n = Integer.parseInt(pref.getString("pref_size", "3"));
+        
         setContentView(R.layout.game_layout);
-
         mainLayout = (LinearLayout) findViewById(R.id.mainLayout);
-
         table = new TableLayout(this);
+        
         mainLayout.addView(table);
 
         createButtons();
@@ -59,27 +67,27 @@ public class GameActivity extends Activity {
         table.removeAllViews();
         table.setStretchAllColumns(true);
 
-        btns = new ImageButton[N][N];
-        for(int i=0; i<N; i++){
+        btns = new ImageButton[n][n];
+        for(int i=0; i<n; i++){
             TableRow row = new TableRow(this);
             TableRow.LayoutParams paramsBtn = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1);
             
-            for (int j=0; j<N; j++){
+            for (int j=0; j<n; j++){
                 ImageButton btn = new ImageButton(this);
                 // btn.setBackgroundResource(R.drawable.posvide);
                 btns[i][j] = btn;
                 btn.setPadding(0,0,0,0);
-                btn.setId(i*N + j);
+                btn.setId(i*n + j);
                 btn.setLayoutParams(paramsBtn);
                 row.addView(btn);
-                btn.setOnClickListener(new View.OnClickListener(){
+                /*btn.setOnClickListener(new View.OnClickListener(){
                     public void onClick(View view){
                         int id = view.getId();
-                        int i = id/N;
-						int j = id - N*i;
+                        int i = id/n;
+						int j = id - n*i;
                         //game.controller().buttonClick(i, j, game);
                     }
-                });
+                });*/
 
             }
             table.addView(row);
@@ -91,8 +99,8 @@ public class GameActivity extends Activity {
     //initialiser les images avec l'image vide
     public void setButtons(){
         //Case c;
-        for (int i=0; i<N; i++){
-            for (int j=0; j<N; j++){
+        for (int i=0; i<n; i++){
+            for (int j=0; j<n; j++){
                 (btns[i][j]).setBackgroundResource(R.drawable.blank);
 
             }
