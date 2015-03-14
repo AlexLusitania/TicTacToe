@@ -4,10 +4,12 @@
 
     <item android:state_pressed="true" >
         <shape>
+            <!-- Orange -->
             <gradient
-                android:startColor="#FFBB33"
-                android:endColor="#FFBB33"
+                android:startColor="#9cd0ff"
+                android:endColor="#9cd0ff"
                 android:angle="270" />
+            <!-- Blue -->
             <stroke
                 android:width="3dp"
                 android:color="#0099CC" />
@@ -23,10 +25,12 @@
 
     <item android:state_focused="true" >
         <shape>
+            <!-- Orange -->
             <gradient
-                android:endColor="#FF8800"
-                android:startColor="#FF8800"
+                android:endColor="#9cd0ff"
+                android:startColor="#9cd0ff"
                 android:angle="270" />
+            <!-- Blue -->
             <stroke
                 android:width="3dp"
                 android:color="#0099CC" />
