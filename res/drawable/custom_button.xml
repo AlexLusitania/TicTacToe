@@ -4,7 +4,7 @@
 
     <item android:state_pressed="true" >
         <shape>
-            <!-- Orange -->
+            <!-- Brighter blue -->
             <gradient
                 android:startColor="#9cd0ff"
                 android:endColor="#9cd0ff"
@@ -25,7 +25,7 @@
 
     <item android:state_focused="true" >
         <shape>
-            <!-- Orange -->
+            <!-- Brighter blue -->
             <gradient
                 android:endColor="#9cd0ff"
                 android:startColor="#9cd0ff"
