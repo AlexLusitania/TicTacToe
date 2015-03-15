@@ -27,8 +27,33 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
 
-	public void singlePlayer(View view){
+	public void singlePlayerGame(View view){
 		Intent intent = new Intent(this, GameActivity.class);
+		
+		Bundle b = new Bundle();
+		b.putInt("mode", 1);
+		intent.putExtras(b);
+		
+		startActivity(intent);
+	}
+	
+	public void multiPlayerGame(View view){
+		Intent intent = new Intent(this, GameActivity.class);
+		
+		Bundle b = new Bundle();
+		b.putInt("mode", 2);
+		intent.putExtras(b);
+		
+		startActivity(intent);
+	}
+	
+	public void bluetoothGame(View view){
+		Intent intent = new Intent(this, GameActivity.class);
+		
+		Bundle b = new Bundle();
+		b.putInt("mode", 3);
+		intent.putExtras(b);
+		
 		startActivity(intent);
 	}
 	

@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 @SuppressWarnings("unused")
 public class GameActivity extends Activity {
@@ -25,7 +26,10 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-
+        Bundle b = getIntent().getExtras();
+        int mode_launched = b.getInt("mode");
+        Toast.makeText(getApplicationContext(), "mode launched: " + mode_launched, Toast.LENGTH_SHORT).show();
+        
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         n = Integer.parseInt(pref.getString("pref_size", "3"));
         

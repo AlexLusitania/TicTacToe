@@ -95,6 +95,6 @@ public class Minmax {
     	}
     	
     	grille.affiche();
-    	afficherResultat(grille);    	 	
+    	afficherResultat(grille);	
     }
 }
