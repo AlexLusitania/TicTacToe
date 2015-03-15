@@ -47,6 +47,7 @@
         android:contentDescription="@string/bluetooth"
         android:drawableLeft="@drawable/bluetooth"
         android:drawableStart="@drawable/bluetooth"
+        android:onClick="bluetoothGame"
         android:text="@string/bluetooth"
         android:textColor="#33b5e5"
         android:background="@drawable/custom_button"

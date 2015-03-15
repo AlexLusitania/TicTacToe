@@ -1,5 +1,7 @@
 package com.majy.tictactoe;
 
+import com.majy.tictactoe.controller.*;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,7 +15,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
-@SuppressWarnings("unused")
 public class GameActivity extends Activity {
 
     private LinearLayout mainLayout;
@@ -21,17 +22,19 @@ public class GameActivity extends Activity {
     private int n;
     private ImageButton[][] btns;
     private SharedPreferences pref;
+    private Controller controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        n = Integer.parseInt(pref.getString("pref_size", "3"));
+        
         Bundle b = getIntent().getExtras();
         int mode_launched = b.getInt("mode");
         Toast.makeText(getApplicationContext(), "mode launched: " + mode_launched, Toast.LENGTH_SHORT).show();
-        
-        pref = PreferenceManager.getDefaultSharedPreferences(this);
-        n = Integer.parseInt(pref.getString("pref_size", "3"));
+        getAdaptedController(mode_launched, n);
         
         setContentView(R.layout.game_layout);
         mainLayout = (LinearLayout) findViewById(R.id.mainLayout);
@@ -43,7 +46,18 @@ public class GameActivity extends Activity {
     }
 
 
-    @Override
+    private void getAdaptedController(int mode_launched, int n) {
+		if(mode_launched == 2){
+			controller = new MultiPlayerController(n);
+		} else if(mode_launched == 3){
+			controller = new BluetoothController(n);
+		} else {
+			controller = new SinglePlayerController(n);
+		}
+	}
+
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.main, menu);
@@ -64,8 +78,7 @@ public class GameActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
+    
     private void createButtons()
     {
         table.removeAllViews();
@@ -78,20 +91,20 @@ public class GameActivity extends Activity {
             
             for (int j=0; j<n; j++){
                 ImageButton btn = new ImageButton(this);
-                // btn.setBackgroundResource(R.drawable.posvide);
                 btns[i][j] = btn;
                 btn.setPadding(0,0,0,0);
                 btn.setId(i*n + j);
                 btn.setLayoutParams(paramsBtn);
                 row.addView(btn);
-                /*btn.setOnClickListener(new View.OnClickListener(){
+                btn.setOnClickListener(new View.OnClickListener(){
                     public void onClick(View view){
                         int id = view.getId();
                         int i = id/n;
 						int j = id - n*i;
+						controller.buttonClick(i, j);
                         //game.controller().buttonClick(i, j, game);
                     }
-                });*/
+                });
 
             }
             table.addView(row);
