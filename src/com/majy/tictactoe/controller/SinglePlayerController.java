@@ -8,8 +8,8 @@ import com.majy.tictactoe.util.JoueurType;
 
 public class SinglePlayerController implements Controller {
 
-	public SinglePlayerController(Joueur joueur, int profondeur, int n){
-		Joueur cpu = new Joueur(JoueurType.CPU, "CPU");
+	public SinglePlayerController(Joueur joueur, int profondeur, int n, String cpu_name){
+		Joueur cpu = new Joueur(JoueurType.CPU, cpu_name);
 		if(joueur.getCamp() == Camp.X){
 			Engine.getInstance().init(joueur, cpu, profondeur, n);
 		} else {

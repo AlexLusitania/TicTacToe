@@ -73,6 +73,9 @@ public class GameActivity extends Activity {
     }
 
     private void getAdaptedController(int mode_launched, int n) {
+    	pref = PreferenceManager.getDefaultSharedPreferences(this);
+        String pref_username = pref.getString("pref_username", getString(R.string.default_username));
+    	
     	//Difficulte:
 		//6 - difficile
 		//2 - medium
@@ -81,7 +84,7 @@ public class GameActivity extends Activity {
 		
     	switch(mode_launched){
 			case 2:{
-				controller = new MultiPlayerController("Player1","Player2", profondeur, n);
+				controller = new MultiPlayerController(pref_username, "Player2", profondeur, n);
 				break;
 			}
 			case 3:{
@@ -90,7 +93,7 @@ public class GameActivity extends Activity {
 			}
 			default:{				
 				//Jouer avec 'X'
-				controller = new SinglePlayerController(new Joueur(JoueurType.HUMAIN,"Max", Camp.X), profondeur, n);				
+				controller = new SinglePlayerController(new Joueur(JoueurType.HUMAIN, pref_username, Camp.X), profondeur, n, getString(R.string.cpu_name));				
 				
 				//Jouer avec 'O'
 				//controller = new SinglePlayerController(new Joueur(JoueurType.HUMAIN,"Max", Camp.O), profondeur, n);
