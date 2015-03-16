@@ -41,7 +41,7 @@ public class GameActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-super.onCreate(savedInstanceState);
+    	super.onCreate(savedInstanceState);
         
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         n = Integer.parseInt(pref.getString("pref_size", "3"));
