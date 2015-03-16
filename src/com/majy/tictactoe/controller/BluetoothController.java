@@ -1,15 +1,12 @@
 package com.majy.tictactoe.controller;
 
+import com.majy.tictactoe.model.EtatDuJoue;
+
 public class BluetoothController implements Controller {
 
-	public BluetoothController(int n) {
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
-	public void buttonClick(int i, int j) {
-		// TODO Auto-generated method stub
-
+	public EtatDuJoue buttonClick(int i, int j) {
+		return null;
 	}
 
 }

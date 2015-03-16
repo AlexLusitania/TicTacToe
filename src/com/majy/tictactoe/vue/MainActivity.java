@@ -1,6 +1,11 @@
-package com.majy.tictactoe;
+package com.majy.tictactoe.vue;
 
 import java.util.Locale;
+
+import com.majy.tictactoe.R;
+import com.majy.tictactoe.R.id;
+import com.majy.tictactoe.R.layout;
+import com.majy.tictactoe.R.menu;
 
 import android.app.Activity;
 import android.content.Intent;

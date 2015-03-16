@@ -1,4 +1,7 @@
-package com.majy.tictactoe;
+package com.majy.tictactoe.vue;
+
+import com.majy.tictactoe.R;
+import com.majy.tictactoe.R.xml;
 
 import android.preference.PreferenceActivity;
 import android.os.Bundle;

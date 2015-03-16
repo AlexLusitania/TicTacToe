@@ -1,20 +1,20 @@
-package com.majy.tictactoe.model;
+package com.majy.tictactoe.util;
 
 public enum Camp {
-	JOUER{
+	X{
 		@Override
 		public Camp adv() {
-			return CPU;
+			return O;
 		}		
 		public String toString(){
 			return "o";
 		}
 	},
 	
-	CPU{
+	O{
 		@Override
 		public Camp adv() {
-			return JOUER;
+			return X;
 		}
 		public String toString(){
 			return "x";
