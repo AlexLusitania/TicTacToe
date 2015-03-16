@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GameActivity extends Activity {
@@ -43,8 +44,19 @@ public class GameActivity extends Activity {
         grid_layout.addView(table);
 
         createButtons();
+        updateInfos();
     }
 
+    private void updateInfos(){
+    	pref = PreferenceManager.getDefaultSharedPreferences(this);
+        String pref_username = pref.getString("pref_username", getString(R.string.default_username));
+        
+        TextView info1 = (TextView) findViewById(R.id.textView1);
+        TextView info2 = (TextView) findViewById(R.id.textView2);
+        
+        info1.setText(pref_username);
+        info2.setText(R.string.cpu_name);
+    }
 
     private void getAdaptedController(int mode_launched, int n) {
 		if(mode_launched == 2){
