@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,7 +49,7 @@ public class GameActivity extends Activity {
         
         Bundle b = getIntent().getExtras();
         int mode_launched = b.getInt("mode");
-        Toast.makeText(getApplicationContext(), "mode launched: " + mode_launched, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "mode launched: " + mode_launched, Toast.LENGTH_SHORT).show();
         getAdaptedController(mode_launched, n);
         
         setContentView(R.layout.game_layout);
@@ -79,12 +80,12 @@ public class GameActivity extends Activity {
     	//Difficulte:
 		//6 - difficile
 		//2 - medium
-		//0 - facile (demi-random)
-		int profondeur = 6;
+		//0 - facile (semi-random)
+        int profondeur = Integer.parseInt(pref.getString("pref_difficulty", "0"));
 		
     	switch(mode_launched){
 			case 2:{
-				controller = new MultiPlayerController(pref_username, "Player2", profondeur, n);
+				controller = new MultiPlayerController(pref_username, getString(R.string.default_username_2), profondeur, n);
 				break;
 			}
 			case 3:{
@@ -178,11 +179,7 @@ public class GameActivity extends Activity {
 					
 			while(! finie && joue.getProchJoueur().getType() == JoueurType.CPU){				
 				
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				SystemClock.sleep(500);
 				
 				joue = controller.buttonClick(0, 0);
 				afficher(joue);
@@ -224,13 +221,13 @@ public class GameActivity extends Activity {
     private void afficherResultats(EtatDuJoue joue){
     	String text = null;
 		if(joue.getGrille().joueurGagne(joue.getDernierJoueur().getCamp())){
-			text = joue.getDernierJoueur().getName() + " a gagné !";
+			text = joue.getDernierJoueur().getName() + " " + getString(R.string.player_win);
 	    } else {
-	    	text = "Egalité !";
+	    	text = getString(R.string.draw);
 	    }
 		
 		enAttente.set(false);
-		Toast.makeText(getApplicationContext(), text , Toast.LENGTH_LONG).show();
+		Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
 		
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);

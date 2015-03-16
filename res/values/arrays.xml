@@ -35,9 +35,9 @@
     </string-array>
 
     <string-array name="pref_difficulty_values">
-        <item>1</item>
+        <item>0</item>
         <item>2</item>
-        <item>3</item>
+        <item>6</item>
     </string-array>
 
 </resources>
