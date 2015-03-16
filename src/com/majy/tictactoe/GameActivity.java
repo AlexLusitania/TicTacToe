@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class GameActivity extends Activity {
 
-    private LinearLayout mainLayout;
+    private LinearLayout grid_layout;
     private TableLayout table;
     private int n;
     private ImageButton[][] btns;
@@ -37,10 +37,10 @@ public class GameActivity extends Activity {
         getAdaptedController(mode_launched, n);
         
         setContentView(R.layout.game_layout);
-        mainLayout = (LinearLayout) findViewById(R.id.mainLayout);
+        grid_layout = (LinearLayout) findViewById(R.id.grid_layout);
         table = new TableLayout(this);
         
-        mainLayout.addView(table);
+        grid_layout.addView(table);
 
         createButtons();
     }
