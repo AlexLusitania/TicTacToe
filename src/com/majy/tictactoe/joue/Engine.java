@@ -34,11 +34,16 @@ public class Engine {
 
 	
 	public EtatDuJoue tour(int i, int j){
-    	Coup coup = new Coup();   	
+				
+    	Coup coup;   	
     	if(joueur.getType() == JoueurType.CPU){
-    		Minmax.minmax(grille, profondeur, joueur.getCamp(), coup, true);
+    		coup = Minmax.trouverCoup(grille, profondeur, joueur.getCamp());
     	} else {
-    		coup.setCoord(i, j);
+    		if(grille.getCase(i, j) != Camp.VIDE){
+    			return null;
+    		}
+    		
+    		coup = new Coup(i, j);
     	}   	
     	grille.setCase(coup.getLigne(), coup.getCol(), joueur.getCamp());  	
     	
@@ -47,22 +52,5 @@ public class Engine {
     	
     	return new EtatDuJoue(grille, coup, dernierJouer, joueur);
     }
-	
-	/*
-	public static void main(String[] args){
-    	
-		Grille grille = new Grille(3,3);
-    	Camp tour = Camp.CPU;
-    	
-    	while(! grille.partieFinie() ){
-    		tour(grille, tour);
-    		tour = tour.adv();   		
-    	}
-    	
-    	grille.affiche();
-    	afficherResultat(grille);
-    		
-    }	
-    */
 	
 }

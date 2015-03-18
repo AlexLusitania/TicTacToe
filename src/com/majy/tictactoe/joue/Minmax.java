@@ -9,9 +9,8 @@ import com.majy.tictactoe.util.Camp;
 
 public class Minmax {
 	
-	
-    public static int minmax(Grille grille, int profondeur, Camp camp, Coup coup, boolean max){
-    	if(profondeur == 0){
+	public static Coup trouverCoup(Grille grille, int profondeur, Camp camp){
+		if(profondeur == 0){
     		if(Math.random() < 0.5){
     			List<Coup> coupsDisponiles = new LinkedList<Coup>();
     			for(int i = 0; i < grille.getRows(); ++i){
@@ -21,15 +20,35 @@ public class Minmax {
     	            	}
     	            }
     	        }
-    			Coup res = coupsDisponiles.get((int)Math.round(Math.random()*coupsDisponiles.size()));
-    			coup.setCoord(res.getLigne(), res.getCol());
-    			return 0;
+    			return  coupsDisponiles.get((int)Math.round(Math.random()*coupsDisponiles.size()));
     		} else {
     			profondeur = 2;
     		}
     	}
     	
-        int valeur = (max) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        int casesVides = 0;
+        for(int i = 0; i < grille.getRows(); ++i){
+            for(int j = 0; j < grille.getCols(); ++j){
+                if(grille.getCase(i,j) == Camp.VIDE){
+                	casesVides++;
+                }
+            }
+        }
+        if(casesVides > 15){
+        	profondeur = Math.min(profondeur, 1);
+        } else if(casesVides > 10){
+        	profondeur = Math.min(profondeur, 2);
+        }
+        
+        Coup coup = new Coup();
+        minmax(grille, profondeur, camp, coup, true);
+        
+        return coup;
+	}
+	
+    public static int minmax(Grille grille, int profondeur, Camp camp, Coup coup, boolean max){
+    	
+        int valeur = (max) ? Integer.MIN_VALUE : Integer.MAX_VALUE;      
         
         for(int i = 0; i < grille.getRows(); ++i){
             for(int j = 0; j < grille.getCols(); ++j){

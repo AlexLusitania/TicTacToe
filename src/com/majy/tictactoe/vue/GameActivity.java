@@ -75,12 +75,7 @@ public class GameActivity extends Activity {
 
     private void getAdaptedController(int mode_launched, int n) {
     	pref = PreferenceManager.getDefaultSharedPreferences(this);
-        String pref_username = pref.getString("pref_username", getString(R.string.default_username));
-    	
-    	//Difficulte:
-		//6 - difficile
-		//2 - medium
-		//0 - facile (semi-random)
+        String pref_username = pref.getString("pref_username", getString(R.string.default_username));   	
         int profondeur = Integer.parseInt(pref.getString("pref_difficulty", "0"));
 		
     	switch(mode_launched){
@@ -93,12 +88,8 @@ public class GameActivity extends Activity {
 				break;
 			}
 			default:{				
-				//Jouer avec 'X'
-				controller = new SinglePlayerController(new Joueur(JoueurType.HUMAIN, pref_username, Camp.X), profondeur, n, getString(R.string.cpu_name));				
-				
-				//Jouer avec 'O'
-				//controller = new SinglePlayerController(new Joueur(JoueurType.HUMAIN,"Max", Camp.O), profondeur, n);
-				//afficher(controller.buttonClick(0, 0));
+				Camp joueurCamp = Camp.X;//Jouer avec 'X'
+				controller = new SinglePlayerController(new Joueur(JoueurType.HUMAIN, pref_username, joueurCamp), profondeur, n, getString(R.string.cpu_name));
 			}
 		}
 	}
@@ -149,7 +140,10 @@ public class GameActivity extends Activity {
                         int i = id/n;
 						int j = id - n*i;
 						
-						turn(i,j);
+						//Prévenir les clicks quand le joueur adverse joue
+						if(enAttente.compareAndSet(false, true)){
+							turn(i,j);							
+						}
                     }
                 });
 
@@ -171,66 +165,102 @@ public class GameActivity extends Activity {
     } 
     
     private void turn(int i, int j){
-    	if(enAttente.compareAndSet(false, true)){
-    		boolean finie = false;
-	    	EtatDuJoue joue = controller.buttonClick(i, j);
-			afficher(joue);
-			finie = joue.getGrille().partieFinie();
-					
-			while(! finie && joue.getProchJoueur().getType() == JoueurType.CPU){				
-				
-				SystemClock.sleep(500);
-				
-				joue = controller.buttonClick(0, 0);
-				afficher(joue);
-				finie = joue.getGrille().partieFinie();
-			}
-			
-			enAttente.set(false);
-			
-			if(finie){
-	    		afficherResultats(joue);
-	    	}
+    	    	
+    	EtatDuJoue joue = controller.buttonClick(i, j);
+    	if(joue == null){
+    		return;
     	}
-    	
+		afficher(joue);
+		
+		if(joue.getGrille().partieFinie()){
+			afficherResultats(joue);
+		} else {
+			checkCPUTurn(joue);
+		}
     }
     
-    private void afficher(EtatDuJoue etat){
-    	for (int i=0; i<n; i++){
-            for (int j=0; j<n; j++){
-            	switch(etat.getGrille().getCase(i, j)){
-            		case X: {
-            			(btns[i][j]).setBackgroundResource(R.drawable.croix1);
-            			break;
-            		}
-            		case O: {
-            			(btns[i][j]).setBackgroundResource(R.drawable.rond1);
-            			break;
-            		}
-            		case VIDE: {
-            			(btns[i][j]).setBackgroundResource(R.drawable.blank);
-            			break;
-            		}
-            	}
-            	(btns[i][j]).clearAnimation();
-            	(btns[i][j]).invalidate();
-            }
-        }
+    private synchronized void checkCPUTurn(EtatDuJoue joue){
+    	if(joue.getProchJoueur().getType() == JoueurType.CPU){
+			new Thread(){
+				@Override
+				public void run(){
+					SystemClock.sleep(500);
+					turnCPU();
+				}
+			}.start();
+		} else {
+			enAttente.set(false);
+		}
     }
     
-    private void afficherResultats(EtatDuJoue joue){
-    	String text = null;
-		if(joue.getGrille().joueurGagne(joue.getDernierJoueur().getCamp())){
-			text = joue.getDernierJoueur().getName() + " " + getString(R.string.player_win);
-	    } else {
-	    	text = getString(R.string.draw);
-	    }
+    private synchronized void turnCPU(){
+ 		
+    	EtatDuJoue joue = controller.buttonClick(0, 0);
+		afficher(joue);
 		
-		enAttente.set(false);
-		Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
-		
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
+		if(joue.getGrille().partieFinie()){
+			afficherResultats(joue);
+		} else {
+			checkCPUTurn(joue);
+		}
     }
-
+    
+    private void afficher(final EtatDuJoue etat){
+    	this.runOnUiThread(new Runnable(){
+			@Override
+			public void run() {
+				if(etat.getProchJoueur().getCamp() == Camp.X){
+					//TODO
+					//montrer que c'est X qui fait le tour
+				} else {
+					//TODO
+					//montrer que c'est O qui fait le tour
+				}
+				
+				
+				for (int i=0; i<n; i++){
+		            for (int j=0; j<n; j++){
+		            	switch(etat.getGrille().getCase(i, j)){
+		            		case X: {
+		            			(btns[i][j]).setBackgroundResource(R.drawable.croix1);
+		            			break;
+		            		}
+		            		case O: {
+		            			(btns[i][j]).setBackgroundResource(R.drawable.rond1);
+		            			break;
+		            		}
+		            		case VIDE: {
+		            			(btns[i][j]).setBackgroundResource(R.drawable.blank);
+		            			break;
+		            		}
+		            	}
+		            	(btns[i][j]).clearAnimation();
+		            	(btns[i][j]).invalidate();
+		            }
+		        }
+			}  		
+    	});   	
+    }
+    
+    private void afficherResultats(final EtatDuJoue joue){
+    	this.runOnUiThread(new Runnable(){
+			@Override
+			public void run() {			
+				String text = null;
+				if(joue.getGrille().joueurGagne(joue.getDernierJoueur().getCamp())){
+					text = joue.getDernierJoueur().getName() + " " + getString(R.string.player_win);
+			    } else {
+			    	text = getString(R.string.draw);
+			    }
+				
+				Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+				
+				
+				Intent intent = new Intent(GameActivity.this, MainActivity.class);
+				
+				enAttente.set(false);
+				startActivity(intent);
+			}
+    	});  	
+    }
 }
