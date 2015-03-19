@@ -27,7 +27,7 @@
     
     <!-- Game -->
     <string name="cpu_name">IA</string>
-    <string name="draw">Desenhar!</string>
+    <string name="draw">Empate!</string>
     <string name="player_win">ganhou!</string>
     
 </resources>
