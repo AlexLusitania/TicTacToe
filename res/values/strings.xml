@@ -26,8 +26,8 @@
     <string name="pref_difficulty_summary">Choose the difficulty</string>
     
     <!-- Game -->
-    <string name="cpu_name">IA</string>
+    <string name="cpu_name">AI</string>
     <string name="draw">Draw!</string>
-    <string name="player_win">Win!</string>
+    <string name="player_win">won!</string>
 
 </resources>

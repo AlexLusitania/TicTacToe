@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- To remove -->
-    <string name="singleplayer">Я не</string>
-    <string name="multiplayer">говорю</string>
-    <string name="bluetooth">по-українськи</string>
+
+    <string name="app_name">Tic Tac Toe</string>
+    
+    <!-- Main -->
+    <string name="singleplayer">Один гравець</string>
+    <string name="multiplayer">Два гравці</string>
+    <string name="bluetooth">Блютуз</string>
+    
+    <!-- Preferences -->
+    <string name="action_settings">Опції</string>
+    
+    <string name="pref_language">Мова</string>
+    <string name="pref_language_summary">Виберіть мову</string>
+    
+    <string name="pref_username">Ім\'я користувача</string>
+    <string name="pref_username_summary">Введіть ім\'я користувача</string>
+    <string name="default_username">Player 1</string>
+    <string name="default_username_2">Player 2</string>
+    
+    <string name="pref_size">Розмір поля</string>
+    <string name="pref_size_summary">Виберіть розмір поля</string>
+    
+    <string name="pref_difficulty">Складність</string>
+    <string name="pref_difficulty_summary">Виберіть cкладність</string>
+    
+    <!-- Game -->
+    <string name="cpu_name">ШІ</string>
+    <string name="draw">Нічия!</string>
+    <string name="player_win">переміг!</string>
+
 </resources>

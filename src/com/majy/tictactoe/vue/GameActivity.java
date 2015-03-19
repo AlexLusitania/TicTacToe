@@ -168,6 +168,7 @@ public class GameActivity extends Activity {
     	    	
     	EtatDuJoue joue = controller.buttonClick(i, j);
     	if(joue == null){
+    		enAttente.set(false);
     		return;
     	}
 		afficher(joue);
