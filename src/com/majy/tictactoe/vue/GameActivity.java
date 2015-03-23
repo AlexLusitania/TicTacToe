@@ -5,6 +5,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -37,6 +39,9 @@ public class GameActivity extends Activity {
     private ImageButton[][] btns;
     private SharedPreferences pref;
     private Controller controller;
+    private EtatDuJoue etat_joue;
+    private TextView textView1;
+    private TextView textView2;
 
 	private AtomicBoolean enAttente = new AtomicBoolean(false);
 
@@ -50,8 +55,15 @@ public class GameActivity extends Activity {
         
         Bundle b = getIntent().getExtras();
         int mode_launched = b.getInt("mode");
+<<<<<<< HEAD
         //Toast.makeText(getApplicationContext(), "mode launched: " + mode_launched, Toast.LENGTH_SHORT).show();
         getAdaptedController(mode_launched);
+=======
+        getAdaptedController(mode_launched, n);
+>>>>>>> 3e85d3ccdcaf397b1b4811f2e35224ff94033a2b
+        
+        textView1 = (TextView) findViewById(R.id.textView1);
+        textView2 = (TextView) findViewById(R.id.textView2);
         
         setContentView(R.layout.game_layout);
         grid_layout = (LinearLayout) findViewById(R.id.grid_layout);
@@ -60,6 +72,7 @@ public class GameActivity extends Activity {
         grid_layout.addView(table);
 
         createButtons();
+<<<<<<< HEAD
         updateInfos();
         
         EtatDuJoue joue = Engine.getInstance().getEtatDuJoue();
@@ -68,9 +81,12 @@ public class GameActivity extends Activity {
         } else { 
         	initJoue(mode_launched, n);
         }
+=======
+        updateInfos(mode_launched);
+>>>>>>> 3e85d3ccdcaf397b1b4811f2e35224ff94033a2b
     }
 
-    private void updateInfos(){
+    private void updateInfos(int mode_launched){
     	pref = PreferenceManager.getDefaultSharedPreferences(this);
         String pref_username = pref.getString("pref_username", getString(R.string.default_username));
         
@@ -78,7 +94,12 @@ public class GameActivity extends Activity {
         TextView info2 = (TextView) findViewById(R.id.textView2);
         
         info1.setText(pref_username);
-        info2.setText(R.string.cpu_name);
+        if(mode_launched == 1){
+        	info2.setText(R.string.cpu_name);
+        }
+        else{
+        	info2.setText(R.string.default_username_2);
+        }
     }
 
     private void getAdaptedController(int mode_launched) {
@@ -134,7 +155,6 @@ public class GameActivity extends Activity {
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -192,7 +212,6 @@ public class GameActivity extends Activity {
 
     //initialiser les images avec l'image vide
     public void setButtons(){
-        //Case c;
         for (int i=0; i<n; i++){
             for (int j=0; j<n; j++){
                 (btns[i][j]).setBackgroundResource(R.drawable.blank);
@@ -201,18 +220,17 @@ public class GameActivity extends Activity {
     } 
     
     private void turn(int i, int j){
-    	    	
-    	EtatDuJoue joue = controller.buttonClick(i, j);
-    	if(joue == null){
+    	this.etat_joue = controller.buttonClick(i, j);
+    	if(this.etat_joue == null){
     		enAttente.set(false);
     		return;
     	}
-		afficher(joue);
+		afficher(this.etat_joue);
 		
-		if(joue.getGrille().partieFinie()){
-			afficherResultats(joue);
+		if(this.etat_joue.getGrille().partieFinie()){
+			afficherResultats(this.etat_joue);
 		} else {
-			checkCPUTurn(joue);
+			checkCPUTurn(this.etat_joue);
 		}
     }
     
@@ -243,15 +261,25 @@ public class GameActivity extends Activity {
     }
     
     private void afficher(final EtatDuJoue etat){
+    	textView1 = (TextView) findViewById(R.id.textView1);
+        textView2 = (TextView) findViewById(R.id.textView2);
     	this.runOnUiThread(new Runnable(){
 			@Override
 			public void run() {
 				if(etat.getProchJoueur().getCamp() == Camp.X){
-					//TODO
-					//montrer que c'est X qui fait le tour
+					// c'est à X de jouer
+					textView1.setBackgroundColor(Color.parseColor("#0099CC"));
+					textView1.setTypeface(null, Typeface.BOLD);
+					
+					textView2.setBackgroundColor(Color.TRANSPARENT);
+					textView2.setTypeface(null, Typeface.NORMAL);
 				} else {
-					//TODO
-					//montrer que c'est O qui fait le tour
+					// c'est à O de jouer
+					textView2.setBackgroundColor(Color.parseColor("#0099CC"));
+					textView2.setTypeface(null, Typeface.BOLD);
+					
+					textView1.setBackgroundColor(Color.TRANSPARENT);
+					textView1.setTypeface(null, Typeface.NORMAL);
 				}
 				
 				
@@ -301,4 +329,17 @@ public class GameActivity extends Activity {
 			}
     	});  	
     }
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onRestoreInstanceState(savedInstanceState);
+	}
+	
 }

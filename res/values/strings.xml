@@ -25,6 +25,9 @@
     <string name="pref_difficulty">Difficulty</string>
     <string name="pref_difficulty_summary">Choose the difficulty</string>
     
+    <string name="devs">Developing team</string>
+    <string name="devs_summary">Yulianna Khorolich, Maksym Kulishev, Alexandre Pais Gomes, Jaweed Parwany</string>
+    
     <!-- Game -->
     <string name="cpu_name">AI</string>
     <string name="draw">Draw!</string>

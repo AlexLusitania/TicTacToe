@@ -1,6 +1,5 @@
 package com.majy.tictactoe.model;
 
-
 public class EtatDuJoue {
 	private Grille grille;
 	private Coup dernierCoup;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="app_name">Tic Tac Toe</string>
+    <string name="app_name">Jogo do Galo</string>
     
     <!-- Main -->
     <string name="singleplayer">1 Jogador</string>
@@ -25,9 +25,11 @@
     <string name="pref_difficulty">Dificuldade</string>
     <string name="pref_difficulty_summary">Escolha a dificuldade</string>
     
+    <string name="devs">Desenvolvedores</string>
+    
     <!-- Game -->
     <string name="cpu_name">IA</string>
-    <string name="draw">Desenhar!</string>
+    <string name="draw">Empate!</string>
     <string name="player_win">ganhou!</string>
     
 </resources>

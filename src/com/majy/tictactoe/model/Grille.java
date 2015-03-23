@@ -2,7 +2,7 @@ package com.majy.tictactoe.model;
 
 import com.majy.tictactoe.util.Camp;
 
-public class Grille {
+public class Grille{
 	Camp[][] cases;
 
     public Grille(int size){
