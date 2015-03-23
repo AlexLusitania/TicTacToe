@@ -23,6 +23,7 @@ import com.majy.tictactoe.controller.BluetoothController;
 import com.majy.tictactoe.controller.Controller;
 import com.majy.tictactoe.controller.MultiPlayerController;
 import com.majy.tictactoe.controller.SinglePlayerController;
+import com.majy.tictactoe.joue.Engine;
 import com.majy.tictactoe.model.EtatDuJoue;
 import com.majy.tictactoe.model.Joueur;
 import com.majy.tictactoe.util.Camp;
@@ -43,14 +44,14 @@ public class GameActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-        
+    	
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         n = Integer.parseInt(pref.getString("pref_size", "3"));
         
         Bundle b = getIntent().getExtras();
         int mode_launched = b.getInt("mode");
         //Toast.makeText(getApplicationContext(), "mode launched: " + mode_launched, Toast.LENGTH_SHORT).show();
-        getAdaptedController(mode_launched, n);
+        getAdaptedController(mode_launched);
         
         setContentView(R.layout.game_layout);
         grid_layout = (LinearLayout) findViewById(R.id.grid_layout);
@@ -59,7 +60,14 @@ public class GameActivity extends Activity {
         grid_layout.addView(table);
 
         createButtons();
-        updateInfos();     
+        updateInfos();
+        
+        EtatDuJoue joue = Engine.getInstance().getEtatDuJoue();
+        if(joue != null){
+        	afficher(joue);
+        } else { 
+        	initJoue(mode_launched, n);
+        }
     }
 
     private void updateInfos(){
@@ -73,26 +81,54 @@ public class GameActivity extends Activity {
         info2.setText(R.string.cpu_name);
     }
 
-    private void getAdaptedController(int mode_launched, int n) {
-    	pref = PreferenceManager.getDefaultSharedPreferences(this);
-        String pref_username = pref.getString("pref_username", getString(R.string.default_username));   	
-        int profondeur = Integer.parseInt(pref.getString("pref_difficulty", "0"));
-		
+    private void getAdaptedController(int mode_launched) {
+    			
     	switch(mode_launched){
 			case 2:{
-				controller = new MultiPlayerController(pref_username, getString(R.string.default_username_2), profondeur, n);
+				controller = new MultiPlayerController();
 				break;
 			}
 			case 3:{
 				controller = new BluetoothController();
 				break;
 			}
-			default:{				
-				Camp joueurCamp = Camp.X;//Jouer avec 'X'
-				controller = new SinglePlayerController(new Joueur(JoueurType.HUMAIN, pref_username, joueurCamp), profondeur, n, getString(R.string.cpu_name));
+			default:{
+				controller = new SinglePlayerController();
 			}
 		}
 	}
+    
+    private void initJoue(int mode_launched, int n){
+    	pref = PreferenceManager.getDefaultSharedPreferences(this);
+        String pref_username = pref.getString("pref_username", getString(R.string.default_username));   	
+        int profondeur = Integer.parseInt(pref.getString("pref_difficulty", "0"));
+        
+        switch(mode_launched){
+			case 2: case 3:{
+				Engine.getInstance().init(new Joueur(JoueurType.HUMAIN, pref_username, Camp.X),
+						new Joueur(JoueurType.HUMAIN, getString(R.string.default_username_2), Camp.O),
+						profondeur, n);	
+				break;
+			}
+			/*
+			case 3:{
+				//TODO
+				break;
+			}
+			*/
+			default:{
+				Camp joueurCamp = Camp.X;//Jouer avec 'X'
+				Joueur joueur = new Joueur(JoueurType.HUMAIN, pref_username, joueurCamp);				
+				Joueur cpu = new Joueur(JoueurType.CPU, getString(R.string.cpu_name));
+				if(joueur.getCamp() == Camp.X){
+					Engine.getInstance().init(joueur, cpu, profondeur, n);
+				} else {
+					Engine.getInstance().init(cpu, joueur, profondeur, n);
+				}	
+			}
+		} 	    	
+    	
+    }
 
 
 	@Override
@@ -260,6 +296,7 @@ public class GameActivity extends Activity {
 				Intent intent = new Intent(GameActivity.this, MainActivity.class);
 				
 				enAttente.set(false);
+				Engine.getInstance().effacerJoue();
 				startActivity(intent);
 			}
     	});  	

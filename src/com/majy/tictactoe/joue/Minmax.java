@@ -22,7 +22,7 @@ public class Minmax {
     	        }
     			return  coupsDisponiles.get((int)Math.round(Math.random()*coupsDisponiles.size()));
     		} else {
-    			profondeur = 2;
+    			profondeur = 1;
     		}
     	}
     	

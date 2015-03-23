@@ -15,10 +15,19 @@ public class Engine {
 	private Joueur joueurX;
 	private Joueur joueurO;
 	private Joueur joueur;
-	private Grille grille;	
+	private Grille grille;
+	private EtatDuJoue etatDuJoue;
 	
 	public static Engine getInstance() {
 		return instance;
+	}
+	
+	public EtatDuJoue getEtatDuJoue() {
+		return etatDuJoue;
+	}
+	
+	public void effacerJoue() {
+		etatDuJoue = null;
 	}
 
 	public void init(Joueur joueurX, Joueur joueurO, int profondeur, int tailleDeGrille){
@@ -30,6 +39,8 @@ public class Engine {
 		this.joueur = this.joueurX;
 		this.joueurX.setCamp(Camp.X);
 		this.joueurO.setCamp(Camp.O);
+		
+		etatDuJoue = new EtatDuJoue(grille, null, null, joueur);
 	}
 
 	
@@ -50,7 +61,9 @@ public class Engine {
     	Joueur dernierJouer = joueur;
     	joueur = (joueur == joueurX) ? joueurO : joueurX;
     	
-    	return new EtatDuJoue(grille, coup, dernierJouer, joueur);
+    	etatDuJoue = new EtatDuJoue(grille, coup, dernierJouer, joueur);
+    	
+    	return etatDuJoue;
     }
 	
 }
