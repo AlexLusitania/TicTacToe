@@ -35,7 +35,6 @@
 	<Preference
 	    android:key="devs"
 	    android:title="@string/devs"
-	    android:summary="@string/devs_summary"
-	    />
+	    android:summary="@string/devs_summary" />
 
 </PreferenceScreen>

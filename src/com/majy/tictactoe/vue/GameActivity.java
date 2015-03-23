@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -37,6 +38,8 @@ public class GameActivity extends Activity {
     private SharedPreferences pref;
     private Controller controller;
     private EtatDuJoue etat_joue;
+    private TextView textView1;
+    private TextView textView2;
 
 	private AtomicBoolean enAttente = new AtomicBoolean(false);
 
@@ -59,6 +62,9 @@ public class GameActivity extends Activity {
         Bundle b = getIntent().getExtras();
         int mode_launched = b.getInt("mode");
         getAdaptedController(mode_launched, n);
+        
+        textView1 = (TextView) findViewById(R.id.textView1);
+        textView2 = (TextView) findViewById(R.id.textView2);
         
         setContentView(R.layout.game_layout);
         grid_layout = (LinearLayout) findViewById(R.id.grid_layout);
@@ -214,15 +220,19 @@ public class GameActivity extends Activity {
     }
     
     private void afficher(final EtatDuJoue etat){
+    	textView1 = (TextView) findViewById(R.id.textView1);
+        textView2 = (TextView) findViewById(R.id.textView2);
     	this.runOnUiThread(new Runnable(){
 			@Override
 			public void run() {
 				if(etat.getProchJoueur().getCamp() == Camp.X){
-					//TODO
-					//montrer que c'est X qui fait le tour
+					// c'est à X de jouer
+					textView1.setBackgroundColor(Color.parseColor("#0099CC"));;
+					textView2.setBackgroundColor(Color.TRANSPARENT);
 				} else {
-					//TODO
-					//montrer que c'est O qui fait le tour
+					// c'est à O de jouer
+					textView2.setBackgroundColor(Color.parseColor("#0099CC"));;
+					textView1.setBackgroundColor(Color.TRANSPARENT);
 				}
 				
 				
