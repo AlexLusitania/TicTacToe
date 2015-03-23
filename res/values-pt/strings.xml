@@ -25,6 +25,8 @@
     <string name="pref_difficulty">Dificuldade</string>
     <string name="pref_difficulty_summary">Escolha a dificuldade</string>
     
+    <string name="devs">Desenvolvedores</string>
+    
     <!-- Game -->
     <string name="cpu_name">IA</string>
     <string name="draw">Empate!</string>

@@ -7,6 +7,7 @@
         <item>Français</item>
         <item>Português (Europeu)</item>
         <item>Українська</item>
+        <item>فارسی</item>
     </string-array>
 
     <string-array name="pref_language_values">
@@ -14,6 +15,7 @@
         <item>fr</item>
         <item>pt</item>
         <item>ua</item>
+        <item>fa</item>
     </string-array>
     
     <string-array name="pref_size_entries">

@@ -23,5 +23,7 @@
     
     <string name="pref_difficulty">مشکل</string>
     <string name="pref_difficulty_summary">را انتخاب کنید مشکل</string>
+    
+    <string name="devs">توسعه دهندگان</string>
 
 </resources>

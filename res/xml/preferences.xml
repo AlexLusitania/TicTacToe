@@ -31,5 +31,11 @@
         android:entries="@array/pref_language_entries"
         android:entryValues="@array/pref_language_values"
         android:defaultValue="en" />
+	
+	<Preference
+	    android:key="devs"
+	    android:title="@string/devs"
+	    android:summary="@string/devs_summary"
+	    />
 
 </PreferenceScreen>
