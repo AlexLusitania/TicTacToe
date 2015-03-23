@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Tic Tac Toe</string>
+    
+    <!-- Main -->
+    <string name="singleplayer">تنها پلیر</string>
+    <string name="multiplayer">دو بازیکن</string>
+    <string name="bluetooth">بلوتوث</string>
+    
+    <!-- Preferences -->
+    <string name="action_settings">تنظیمات</string>
+    
+    <string name="pref_language">زبان</string>
+    <string name="pref_language_summary">انتخاب زبان</string>
+    
+    <string name="pref_username">نام کاربری</string>
+    <string name="pref_username_summary">نام کاربری خود را در اینجا ارائه</string>
+    <string name="default_username">پلیر 1</string>
+    
+    <string name="pref_size">اندازه ماتریس</string>
+    <string name="pref_size_summary">اندازه را انتخاب کنید</string>
+    
+    <string name="pref_difficulty">مشکل</string>
+    <string name="pref_difficulty_summary">را انتخاب کنید مشکل</string>
+
+</resources>
