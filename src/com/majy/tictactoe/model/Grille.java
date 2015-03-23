@@ -1,12 +1,14 @@
 package com.majy.tictactoe.model;
 
-public class Grille {
+import com.majy.tictactoe.util.Camp;
+
+public class Grille{
 	Camp[][] cases;
 
-    public Grille(int rows, int cols){
-        cases = new Camp[rows][cols];
-        for(int i = 0; i < rows; ++i){
-        	for(int j = 0; j < cols; ++j){
+    public Grille(int size){
+        cases = new Camp[size][size];
+        for(int i = 0; i < size; ++i){
+        	for(int j = 0; j < size; ++j){
         		cases[i][j] = Camp.VIDE;
             }
         }
@@ -48,8 +50,9 @@ public class Grille {
                     break;
                 }
             }
+            if(gagne){return true;}
         }
-        if(gagne){return true;}
+        
 
         //colonnes
         for(int i = 0; i < cases[0].length; ++i){
@@ -60,6 +63,7 @@ public class Grille {
                     break;
                 }
             }
+            if(gagne){return true;}
         }
 
         //diagonales
@@ -175,13 +179,13 @@ public class Grille {
      * Estimation de coups possibles pour gagner / perdre
      * priorite pour gagner (CPU peut prevenir default si jouer peut gagner mais cpu a coup ) 
      * */
-    public int estimerCoupsDansGrilleAbsGagneDef(){    	
-    	int coups = coupsGagnants(Camp.CPU);
+    public int estimerCoupsDansGrilleAbsGagneDef(Camp camp){    	
+    	int coups = coupsGagnants(camp);
     	if(coups > 0){
     		return 50 * coups;   	
     	}
     	
-    	coups = coupsGagnants(Camp.JOUER);
+    	coups = coupsGagnants(camp.adv());
     	if(coups > 0){
     		return -50 * coups;   	
     	}
@@ -192,13 +196,13 @@ public class Grille {
      * Estimation de coups possibles pour gagner / perdre
      * priorite pour perdre (CPU peut pas prevenir default si jouer peut gagner et il a coup ) 
      * */	
-    public int estimerCoupsDansGrilleAbsDefGagne(){ 	
-    	int coups = coupsGagnants(Camp.JOUER);
+    public int estimerCoupsDansGrilleAbsDefGagne(Camp camp){ 	
+    	int coups = coupsGagnants(camp.adv());
     	if(coups > 0){
     		return -50 * coups;   	
     	}
     	
-    	coups = coupsGagnants(Camp.CPU);
+    	coups = coupsGagnants(camp);
     	if(coups > 0){
     		return 50 * coups;   	
     	}
@@ -206,26 +210,26 @@ public class Grille {
     	return 0;
     }
     
-    public int estimerCoupsDansGrilleAbs(Camp camp){ 	
-    	if(joueurGagne(Camp.CPU)){return 100;}
-    	if(joueurGagne(Camp.JOUER)){return -100;}
+    public int estimerCoupsDansGrilleAbs(Camp camp, boolean cpu){ 	
+    	if(joueurGagne(camp) && cpu){return 100;}
+    	if(joueurGagne(camp.adv()) && !cpu){return -100;}
     	
-    	return (camp == Camp.CPU) ? estimerCoupsDansGrilleAbsDefGagne() : 
-    		estimerCoupsDansGrilleAbsGagneDef();
+    	return (cpu) ? estimerCoupsDansGrilleAbsDefGagne(camp) : 
+    		estimerCoupsDansGrilleAbsGagneDef(camp.adv());
     }
     
-    public int estimerGrille(Camp camp){
-    	return estimerLignesDansLaGrille(camp) + estimerCoupsDansGrilleAbs(camp);
+    public int estimerGrille(Camp camp, boolean cpu){
+    	return estimerLignesDansLaGrille((cpu) ? camp : camp.adv()) + estimerCoupsDansGrilleAbs(camp, cpu);
     }
     
     public boolean grilleFinie(Camp camp){
     	return (joueurGagne(camp.adv()) ||
-    			coupsGagnants(camp.adv()) > 0 ||
     			joueurGagne(camp) ||
-    			coupsGagnants(camp) > 0 );   	   	
+    			coupsGagnants(camp.adv()) > 0 ||
+    			coupsGagnants(camp) > 1 );   	   	
     }
     
-    private boolean grilleRemplie(){
+    public boolean grilleRemplie(){
     	for(int i = 0; i < cases.length; ++i){
         	for(int j = 0; j < cases[i].length; ++j){
         		if(cases[i][j] == Camp.VIDE){
@@ -237,7 +241,7 @@ public class Grille {
     }
     
     public boolean partieFinie(){
-    	return joueurGagne(Camp.CPU) || joueurGagne(Camp.JOUER) || grilleRemplie();
+    	return joueurGagne(Camp.O) || joueurGagne(Camp.X) || grilleRemplie();
     }
     
     public void affiche(){

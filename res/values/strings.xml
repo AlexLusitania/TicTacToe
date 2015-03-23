@@ -17,11 +17,17 @@
     <string name="pref_username">Username</string>
     <string name="pref_username_summary">Provide your username here</string>
     <string name="default_username">Player 1</string>
+    <string name="default_username_2">Player 2</string>
     
     <string name="pref_size">Size of the matrix</string>
     <string name="pref_size_summary">Choose the size</string>
     
     <string name="pref_difficulty">Difficulty</string>
     <string name="pref_difficulty_summary">Choose the difficulty</string>
+    
+    <!-- Game -->
+    <string name="cpu_name">AI</string>
+    <string name="draw">Draw!</string>
+    <string name="player_win">won!</string>
 
 </resources>

@@ -17,11 +17,17 @@
     <string name="pref_username">Pseudo</string>
     <string name="pref_username_summary">Entrez votre pseudo ici</string>
     <string name="default_username">Joueur 1</string>
+    <string name="default_username_2">Joueur 2</string>
     
     <string name="pref_size">Taille de la grille</string>
     <string name="pref_size_summary">Choissisez la taille de la grille</string>
     
     <string name="pref_difficulty">Difficulté</string>
     <string name="pref_difficulty_summary">Choissisez la difficulté</string>
+    
+    <!-- Game -->
+    <string name="cpu_name">IA</string>
+    <string name="draw">Egalité !</string>
+    <string name="player_win">a gagné !</string>
     
 </resources>

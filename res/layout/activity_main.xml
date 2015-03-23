@@ -8,52 +8,85 @@
     android:gravity="center"
     tools:context=".MainActivity" >
     
-	<Button
-        android:id="@+id/singleplayer_btn"
+    <LinearLayout
+        android:visibility="invisible"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/singleplayer"
-        android:drawableLeft="@drawable/singleplayer"
-        android:drawableStart="@drawable/singleplayer"
-        android:onClick="singlePlayerGame"
-        android:text="@string/singleplayer"
-        android:textColor="#33b5e5"
-        android:background="@drawable/custom_button"
-        android:layout_marginBottom="5dp"
-		android:layout_marginLeft="10dp"
-		android:layout_marginRight="10dp"
-		android:layout_marginTop="5dp" />
-
-    <Button
-        android:id="@+id/multiplayer_btn"
+		android:layout_height="0dp"
+		android:layout_weight="1">
+    </LinearLayout>
+    
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/multiplayer"
-        android:drawableLeft="@drawable/multiplayer"
-        android:drawableStart="@drawable/multiplayer"
-        android:onClick="multiPlayerGame"
-        android:text="@string/multiplayer"
-        android:textColor="#33b5e5"
-        android:background="@drawable/custom_button"
-        android:layout_marginBottom="5dp"
-		android:layout_marginLeft="10dp"
-		android:layout_marginRight="10dp"
-		android:layout_marginTop="5dp" />
-
-    <Button
-        android:id="@+id/bluetooth_btn"
+		android:layout_height="0dp"
+		android:layout_weight="3"
+		android:orientation="vertical">
+		
+		<Button
+	        android:id="@+id/singleplayer_btn"
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1"
+	        android:contentDescription="@string/singleplayer"
+	        android:drawableLeft="@drawable/singleplayer"
+	        android:drawableStart="@drawable/singleplayer"
+	        android:onClick="singlePlayerGame"
+	        android:text="@string/singleplayer"
+	        android:textColor="#33b5e5"
+	        android:textSize="@dimen/main_text_size"
+	        android:background="@drawable/custom_button"
+	        android:layout_marginBottom="@dimen/main_margin_bottom"
+	        android:layout_marginStart="@dimen/main_margin_left"
+			android:layout_marginLeft="@dimen/main_margin_left"
+			android:layout_marginEnd="@dimen/main_margin_right"
+			android:layout_marginRight="@dimen/main_margin_right"
+			android:layout_marginTop="@dimen/main_margin_top" />
+	
+	    <Button
+	        android:id="@+id/multiplayer_btn"
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1"
+	        android:contentDescription="@string/multiplayer"
+	        android:drawableLeft="@drawable/multiplayer"
+	        android:drawableStart="@drawable/multiplayer"
+	        android:onClick="multiPlayerGame"
+	        android:text="@string/multiplayer"
+	        android:textColor="#33b5e5"
+	        android:textSize="@dimen/main_text_size"
+	        android:background="@drawable/custom_button"
+	        android:layout_marginBottom="@dimen/main_margin_bottom"
+	        android:layout_marginStart="@dimen/main_margin_left"
+			android:layout_marginLeft="@dimen/main_margin_left"
+			android:layout_marginEnd="@dimen/main_margin_right"
+			android:layout_marginRight="@dimen/main_margin_right"
+			android:layout_marginTop="@dimen/main_margin_top" />
+	
+	    <Button
+	        android:id="@+id/bluetooth_btn"
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1"
+	        android:contentDescription="@string/bluetooth"
+	        android:drawableLeft="@drawable/bluetooth"
+	        android:drawableStart="@drawable/bluetooth"
+	        android:onClick="bluetoothGame"
+	        android:text="@string/bluetooth"
+	        android:textColor="#33b5e5"
+	        android:textSize="@dimen/main_text_size"
+	        android:background="@drawable/custom_button"
+	        android:layout_marginBottom="@dimen/main_margin_bottom"
+	        android:layout_marginStart="@dimen/main_margin_left"
+			android:layout_marginLeft="@dimen/main_margin_left"
+			android:layout_marginEnd="@dimen/main_margin_right"
+			android:layout_marginRight="@dimen/main_margin_right"
+			android:layout_marginTop="@dimen/main_margin_top" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:visibility="invisible"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/bluetooth"
-        android:drawableLeft="@drawable/bluetooth"
-        android:drawableStart="@drawable/bluetooth"
-        android:onClick="bluetoothGame"
-        android:text="@string/bluetooth"
-        android:textColor="#33b5e5"
-        android:background="@drawable/custom_button"
-        android:layout_marginBottom="5dp"
-		android:layout_marginLeft="10dp"
-		android:layout_marginRight="10dp"
-		android:layout_marginTop="5dp" />
+		android:layout_height="0dp"
+		android:layout_weight="1">
+    </LinearLayout>
 
 </LinearLayout>

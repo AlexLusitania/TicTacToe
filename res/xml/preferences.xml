@@ -3,8 +3,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <EditTextPreference
+        android:key="pref_username"
         android:title="@string/pref_username"
-        android:key="pref_pseudo"
         android:summary="@string/pref_username_summary"
         android:defaultValue="@string/default_username" />
     

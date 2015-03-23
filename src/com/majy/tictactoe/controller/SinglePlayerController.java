@@ -1,15 +1,25 @@
 package com.majy.tictactoe.controller;
 
-public class SinglePlayerController implements Controller {
-	
-	public SinglePlayerController(int n){
-		
-	}
+import com.majy.tictactoe.joue.Engine;
+import com.majy.tictactoe.model.EtatDuJoue;
+import com.majy.tictactoe.model.Joueur;
+import com.majy.tictactoe.util.Camp;
+import com.majy.tictactoe.util.JoueurType;
 
+public class SinglePlayerController implements Controller {
+
+	public SinglePlayerController(Joueur joueur, int profondeur, int n, String cpu_name){
+		Joueur cpu = new Joueur(JoueurType.CPU, cpu_name);
+		if(joueur.getCamp() == Camp.X){
+			Engine.getInstance().init(joueur, cpu, profondeur, n);
+		} else {
+			Engine.getInstance().init(cpu, joueur, profondeur, n);
+		}		
+	}
+	
 	@Override
-	public void buttonClick(int i, int j) {
-		// TODO Auto-generated method stub
-		
+	public EtatDuJoue buttonClick(int i, int j) {
+		return Engine.getInstance().tour(i, j);
 	}
 
 }

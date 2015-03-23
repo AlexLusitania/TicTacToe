@@ -4,6 +4,12 @@ public class Coup {
 	int ligne;
 	int col;
 	
+	public Coup() {}
+	
+	public Coup(int ligne, int col) {
+		setCoord(ligne, col);
+	}
+
 	public void setCoord(int ligne, int col) {
 		this.ligne = ligne;
 		this.col = col;

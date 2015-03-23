@@ -1,7 +1,7 @@
-package com.majy.tictactoe;
+package com.majy.tictactoe.vue;
 
 import java.util.Locale;
-
+import com.majy.tictactoe.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,9 +11,7 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-@SuppressWarnings("unused")
 public class MainActivity extends Activity {
 	
 	private static final int SETTINGS_RETURN = 1;
@@ -91,10 +89,8 @@ public class MainActivity extends Activity {
 	private void updateSettings(){
 		pref = PreferenceManager.getDefaultSharedPreferences(this);
         config = getBaseContext().getResources().getConfiguration();
+        //TODO: Check if we should be using phone locale instead of 'en'
         String pref_language = pref.getString("pref_language", "en");
-        
-        //Toast.makeText(getApplicationContext(), "pref_language: " + pref_language, Toast.LENGTH_SHORT).show();
-        //Toast.makeText(getApplicationContext(), "config_language: " + config.locale.getLanguage(), Toast.LENGTH_SHORT).show();
         
         if (!config.locale.getLanguage().equals(pref_language)){
         	Locale locale = new Locale(pref_language);
@@ -103,4 +99,12 @@ public class MainActivity extends Activity {
         	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
         }
 	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+	}
+	
+	
 }
