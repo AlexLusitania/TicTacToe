@@ -36,6 +36,7 @@ public class GameActivity extends Activity {
     private ImageButton[][] btns;
     private SharedPreferences pref;
     private Controller controller;
+    private EtatDuJoue etat_joue;
 
 	private AtomicBoolean enAttente = new AtomicBoolean(false);
 
@@ -43,13 +44,20 @@ public class GameActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
+    	
+    	/*if(savedInstanceState != null){
+    		this.etat_joue = (EtatDuJoue) savedInstanceState.getSerializable("game_state");
+    		afficher(this.etat_joue);
+    		if(this.etat_joue.getGrille().partieFinie()){
+    			afficherResultats(this.etat_joue);
+    		}
+    	}*/
         
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         n = Integer.parseInt(pref.getString("pref_size", "3"));
         
         Bundle b = getIntent().getExtras();
         int mode_launched = b.getInt("mode");
-        //Toast.makeText(getApplicationContext(), "mode launched: " + mode_launched, Toast.LENGTH_SHORT).show();
         getAdaptedController(mode_launched, n);
         
         setContentView(R.layout.game_layout);
@@ -59,7 +67,7 @@ public class GameActivity extends Activity {
         grid_layout.addView(table);
 
         createButtons();
-        updateInfos();     
+        updateInfos();
     }
 
     private void updateInfos(){
@@ -165,18 +173,17 @@ public class GameActivity extends Activity {
     } 
     
     private void turn(int i, int j){
-    	    	
-    	EtatDuJoue joue = controller.buttonClick(i, j);
-    	if(joue == null){
+    	this.etat_joue = controller.buttonClick(i, j);
+    	if(this.etat_joue == null){
     		enAttente.set(false);
     		return;
     	}
-		afficher(joue);
+		afficher(this.etat_joue);
 		
-		if(joue.getGrille().partieFinie()){
-			afficherResultats(joue);
+		if(this.etat_joue.getGrille().partieFinie()){
+			afficherResultats(this.etat_joue);
 		} else {
-			checkCPUTurn(joue);
+			checkCPUTurn(this.etat_joue);
 		}
     }
     
@@ -264,4 +271,19 @@ public class GameActivity extends Activity {
 			}
     	});  	
     }
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		//outState.putSerializable("game_state", this.etat_joue);
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		//this.etat_joue = (EtatDuJoue) savedInstanceState.getSerializable("game_state");
+		super.onRestoreInstanceState(savedInstanceState);
+	}
+	
 }
