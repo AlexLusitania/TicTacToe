@@ -20,7 +20,8 @@ public class Minmax {
     	            	}
     	            }
     	        }
-    			return  coupsDisponiles.get((int)Math.round(Math.random()*coupsDisponiles.size()));
+    			return  coupsDisponiles.get(Math.min(coupsDisponiles.size()-1,
+    							(int)Math.round(Math.random()*coupsDisponiles.size())));
     		} else {
     			profondeur = 1;
     		}

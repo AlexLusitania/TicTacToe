@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -42,9 +45,22 @@ public class GameActivity extends Activity {
     private EtatDuJoue etat_joue;
     private TextView textView1;
     private TextView textView2;
-
+    // Sound
+    private SoundPool soundPool_fanf;
+	private int soundID_fanf;
+	boolean plays_fanf = false, loaded_fanf = false;
+	private SoundPool soundPool_go;
+	private int soundID_go;
+	boolean plays_go = false, loaded_go = false;
+	private SoundPool soundPool_mj;
+	private int soundID_mj;
+	boolean plays_mj = false, loaded_mj = false;
+	
+	float actVolume, maxVolume, volume;
+	AudioManager audioManager;
+	int counter;
+	
 	private AtomicBoolean enAttente = new AtomicBoolean(false);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +73,41 @@ public class GameActivity extends Activity {
         int mode_launched = b.getInt("mode");
 
         getAdaptedController(mode_launched);
+
+        //// Audio
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+		actVolume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+		maxVolume = (float) audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		volume = actVolume;
+		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		counter = 0;
+		
+		soundPool_fanf = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		soundPool_fanf.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+			@Override
+			public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+				loaded_fanf = true;
+			}
+		});
+		soundID_fanf = soundPool_fanf.load(this, R.raw.fanfare, 1);
+		//
+		soundPool_go = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		soundPool_go.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+			@Override
+			public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+				loaded_go = true;
+			}
+		});
+		soundID_go = soundPool_go.load(this, R.raw.gameover, 1);
+		//
+		soundPool_mj = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		soundPool_mj.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+			@Override
+			public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+				loaded_mj = true;
+			}
+		});
+		soundID_mj = soundPool_mj.load(this, R.raw.minijump, 1);
         
         textView1 = (TextView) findViewById(R.id.textView1);
         textView2 = (TextView) findViewById(R.id.textView2);
@@ -97,7 +148,6 @@ public class GameActivity extends Activity {
     }
 
     private void getAdaptedController(int mode_launched) {
-    			
     	switch(mode_launched){
 			case 2:{
 				controller = new MultiPlayerController();
@@ -125,12 +175,6 @@ public class GameActivity extends Activity {
 						profondeur, n);	
 				break;
 			}
-			/*
-			case 3:{
-				//TODO
-				break;
-			}
-			*/
 			default:{
 				Camp joueurCamp = Camp.X;//Jouer avec 'X'
 				Joueur joueur = new Joueur(JoueurType.HUMAIN, pref_username, joueurCamp);				
@@ -308,8 +352,14 @@ public class GameActivity extends Activity {
 				String text = null;
 				if(joue.getGrille().joueurGagne(joue.getDernierJoueur().getCamp())){
 					text = joue.getDernierJoueur().getName() + " " + getString(R.string.player_win);
+					if(joue.getDernierJoueur().getCamp() == Camp.X){
+						playSoundFanfare();
+					} else {
+						playSoundGO();
+					}
 			    } else {
 			    	text = getString(R.string.draw);
+			    	playSoundGO();
 			    }
 				
 				Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
@@ -334,6 +384,35 @@ public class GameActivity extends Activity {
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onRestoreInstanceState(savedInstanceState);
+	}
+	
+	public void playSoundFanfare() {
+		// Is the sound loaded does it already play?
+		if (loaded_fanf && !plays_fanf) {
+			soundPool_fanf.play(soundID_fanf, volume, volume, 1, 0, 1f);
+			counter = counter++;
+			plays_fanf = true;
+		}
+	}
+	
+	public void playSoundGO() {
+		// Is the sound loaded does it already play?
+		if (loaded_go && !plays_go) {
+			soundPool_go.play(soundID_go, volume, volume, 1, 0, 1f);
+			counter = counter++;
+			Toast.makeText(this, "Played sound", Toast.LENGTH_SHORT).show();
+			plays_go = true;
+		}
+	}
+	
+	public void playSoundMiniJump() {
+		// Is the sound loaded does it already play?
+		if (loaded_mj && !plays_mj) {
+			soundPool_mj.play(soundID_mj, volume, volume, 1, 0, 1f);
+			counter = counter++;
+			Toast.makeText(this, "Played sound", Toast.LENGTH_SHORT).show();
+			plays_mj = true;
+		}
 	}
 	
 }
