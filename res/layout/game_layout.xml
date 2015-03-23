@@ -31,6 +31,7 @@
 		    android:textColor="@android:color/white"
 		    android:textSize="@dimen/info_text_size"
 		    android:background="#0099CC"
+		    android:textStyle="bold"
 		    android:gravity="center"
 		    android:drawableLeft="@drawable/player"
 	        android:drawableStart="@drawable/player" />

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -47,14 +48,6 @@ public class GameActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-    	
-    	/*if(savedInstanceState != null){
-    		this.etat_joue = (EtatDuJoue) savedInstanceState.getSerializable("game_state");
-    		afficher(this.etat_joue);
-    		if(this.etat_joue.getGrille().partieFinie()){
-    			afficherResultats(this.etat_joue);
-    		}
-    	}*/
         
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         n = Integer.parseInt(pref.getString("pref_size", "3"));
@@ -73,10 +66,10 @@ public class GameActivity extends Activity {
         grid_layout.addView(table);
 
         createButtons();
-        updateInfos();
+        updateInfos(mode_launched);
     }
 
-    private void updateInfos(){
+    private void updateInfos(int mode_launched){
     	pref = PreferenceManager.getDefaultSharedPreferences(this);
         String pref_username = pref.getString("pref_username", getString(R.string.default_username));
         
@@ -84,7 +77,12 @@ public class GameActivity extends Activity {
         TextView info2 = (TextView) findViewById(R.id.textView2);
         
         info1.setText(pref_username);
-        info2.setText(R.string.cpu_name);
+        if(mode_launched == 1){
+        	info2.setText(R.string.cpu_name);
+        }
+        else{
+        	info2.setText(R.string.default_username_2);
+        }
     }
 
     private void getAdaptedController(int mode_launched, int n) {
@@ -112,7 +110,6 @@ public class GameActivity extends Activity {
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -170,7 +167,6 @@ public class GameActivity extends Activity {
 
     //initialiser les images avec l'image vide
     public void setButtons(){
-        //Case c;
         for (int i=0; i<n; i++){
             for (int j=0; j<n; j++){
                 (btns[i][j]).setBackgroundResource(R.drawable.blank);
@@ -227,12 +223,18 @@ public class GameActivity extends Activity {
 			public void run() {
 				if(etat.getProchJoueur().getCamp() == Camp.X){
 					// c'est à X de jouer
-					textView1.setBackgroundColor(Color.parseColor("#0099CC"));;
+					textView1.setBackgroundColor(Color.parseColor("#0099CC"));
+					textView1.setTypeface(null, Typeface.BOLD);
+					
 					textView2.setBackgroundColor(Color.TRANSPARENT);
+					textView2.setTypeface(null, Typeface.NORMAL);
 				} else {
 					// c'est à O de jouer
-					textView2.setBackgroundColor(Color.parseColor("#0099CC"));;
+					textView2.setBackgroundColor(Color.parseColor("#0099CC"));
+					textView2.setTypeface(null, Typeface.BOLD);
+					
 					textView1.setBackgroundColor(Color.TRANSPARENT);
+					textView1.setTypeface(null, Typeface.NORMAL);
 				}
 				
 				
@@ -285,14 +287,12 @@ public class GameActivity extends Activity {
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		// TODO Auto-generated method stub
-		//outState.putSerializable("game_state", this.etat_joue);
 		super.onSaveInstanceState(outState);
 	}
 
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		//this.etat_joue = (EtatDuJoue) savedInstanceState.getSerializable("game_state");
 		super.onRestoreInstanceState(savedInstanceState);
 	}
 	
