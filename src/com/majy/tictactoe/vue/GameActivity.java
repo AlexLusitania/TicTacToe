@@ -55,12 +55,8 @@ public class GameActivity extends Activity {
         
         Bundle b = getIntent().getExtras();
         int mode_launched = b.getInt("mode");
-<<<<<<< HEAD
-        //Toast.makeText(getApplicationContext(), "mode launched: " + mode_launched, Toast.LENGTH_SHORT).show();
+
         getAdaptedController(mode_launched);
-=======
-        getAdaptedController(mode_launched, n);
->>>>>>> 3e85d3ccdcaf397b1b4811f2e35224ff94033a2b
         
         textView1 = (TextView) findViewById(R.id.textView1);
         textView2 = (TextView) findViewById(R.id.textView2);
@@ -72,8 +68,8 @@ public class GameActivity extends Activity {
         grid_layout.addView(table);
 
         createButtons();
-<<<<<<< HEAD
-        updateInfos();
+
+        updateInfos(mode_launched);
         
         EtatDuJoue joue = Engine.getInstance().getEtatDuJoue();
         if(joue != null){
@@ -81,9 +77,7 @@ public class GameActivity extends Activity {
         } else { 
         	initJoue(mode_launched, n);
         }
-=======
-        updateInfos(mode_launched);
->>>>>>> 3e85d3ccdcaf397b1b4811f2e35224ff94033a2b
+
     }
 
     private void updateInfos(int mode_launched){
